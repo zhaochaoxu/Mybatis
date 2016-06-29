@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chaoxu.mapper.TopicMapper">
+
+    <select id="findByid"  resultType="Topic" >
+        SELECT t_topic.*,t_user.username as 'Tuser.username' ,t_user.password AS 'Tuser.password',t_node.nodename AS 'node.nodename' FROM t_topic
+        INNER JOIN t_user ON t_user.id = t_topic.userid
+        INNER JOIN t_node ON t_node.id = t_topic.nodeid  WHERE t_topic.id=#{id}
+    </select>
+
+    <!--<resultMap id="topicMap" type="Topic">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="text" property="text"/>
+        <result column="createtime" property="createtime"/>
+
+        <association property="tuser" javaType="Tuser" column="id">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+
+        </association>
+        <association property="node" javaType="Node" column="id">
+            <id column="id" property="id"/>
+            <result column="nodename" property="nodename"/>
+        </association>
+
+    </resultMap>-->
+
+    <select id="findAll" resultType="com.chaoxu.pojo.Tuser">
+
+      SELECT t_user.*,t_tag.tagname AS 'tag.tagname'FROM t_user INNER JOIN  t_tag ON t_user.id = t_tag.userid
+
+    </select>
+
+</mapper>

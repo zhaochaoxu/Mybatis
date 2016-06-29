@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chaoxu.mapper.UserMapper">
+    <!--缓存的处理-->
+    <cache/>
+
+    <insert id="addUser" parameterType="User">
+
+        INSERT INTO users(username,password) VALUES(#{username},#{password})
+
+    </insert>
+
+    <insert id="BathSave" parameterType="list">
+        INSERT INTO users(username,password) VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.username},#{user.password})
+        </foreach>
+    </insert>
+
+    <delete id="delUser" parameterType="int">
+
+        DELETE FROM users WHERE  id = #{id}
+
+    </delete>
+
+    <update id="upUser" parameterType="User">
+        UPDATE users SET username=#{username},password=#{password} WHERE id=#{id}
+    </update>
+
+    <select id="findByid" parameterType="int" resultType="User">
+
+        SELECT * FROM users WHERE id = #{id}
+
+    </select>
+
+    <select id="findAll" resultType="User">
+
+        SELECT id,username, password FROM users
+
+    </select>
+
+    <select id="findByMap" parameterType="map" resultType="User">
+        SELECT * FROM  users WHERE username=#{username} and password=#{password}
+    </select>
+
+    <select id="findByparam"  resultType="User">
+
+        SELECT *FROM users where username = #{param1} AND password = #{param2}
+        <!--SELECT * FROM  users WHERE username=#{username} and password=#{pwd}-->
+
+    </select>
+
+    <select id="findByQueryMap" parameterType="map" resultType="User">
+        SELECT * from users
+        <where>
+            <if test="username!='' and username != null">
+                username = #{username}
+            </if>
+            <if test="password !='' and password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="findBYID" parameterType="list" resultType="User">
+        SELECT * FROM users WHERE id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="findBypage" resultType="User">
+        SELECT  * FROM users limit #{start},#{size}
+    </select>
+
+</mapper>

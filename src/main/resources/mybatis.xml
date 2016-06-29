@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--注册别名-->
+    <typeAliases>
+        <typeAlias type="com.chaoxu.pojo.User" alias="User"/>
+        <typeAlias type="com.chaoxu.pojo.Topic" alias="Topic"/>
+        <typeAlias type="com.chaoxu.pojo.Tuser" alias="Tuser"/>
+        <typeAlias type="com.chaoxu.pojo.Node" alias="Node"/>
+    </typeAliases>
+
+    <environments default="forum">
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///message"/>
+                <property name="username" value="root"/>
+                <property name="password" value="0314"/>
+            </dataSource>
+        </environment>
+        <environment id="forum">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///forum"/>
+                <property name="username" value="root"/>
+                <property name="password" value="0314"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/TopicMapper.xml"/>
+        <!--<mapper class="com.chaoxu.mapper.UserMapper"/>
+        <mapper class="com.chaoxu.mapper.TopicMapper"/>-->
+    </mappers>
+</configuration>
